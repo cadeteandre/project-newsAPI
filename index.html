@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project News API</title>
+  </head>
+  <body>
+    <div id="app">
+      <h2>News APP</h2>
+      <form onsubmit="return false">
+        <div class="wrapper">
+          <label for="searchKeyword">Suchbegriff</label>
+          <input class="form__style" type="text" name="searchKeyword" id="searchKeyword" placeholder="Suchbegriff">
+        </div>
+        <div class="wrapper">
+          <label for="language">Sprache</label>
+          <select class="form__style" name="language" id="languageSelect"></select>
+        </div>
+        <div class="wrapper">
+          <label for="sortBy">Sortieren nach</label>
+          <select class="form__style" name="sortBy" id="sortBySelect">
+            <option value="relevancy">Relevanz</option>
+            <option value="popularity">Popularität</option>
+            <option value="publishedAt">Neueste zuerst</option>
+          </select>
+        </div>
+        <button>Suchen</button>
+      </form>
+      <div id="showResults"></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
