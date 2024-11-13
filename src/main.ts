@@ -1,8 +1,8 @@
 import './style.css'
-import { INews, IArticle, ISource, IID } from './interfaces/INews';
+import { INews } from './interfaces/INews';
 import { languagesWithCodes } from './countries';
 
-const API_KEY = 'apiKey=e9431aa735db410ebb9fcb58d7053da5';
+const API_KEY = import.meta.env.VITE_KEY_API
 const BASE_URL = `https://newsapi.org/v2/everything?`;
 
 //* -------------------- Selecting HTML Elements --------------------
@@ -20,7 +20,7 @@ languagesWithCodes.forEach((language) => {
   languageSelect.appendChild(optionElement);
 })
 
-//? -------------------- Declaring functions --------------------
+//* -------------------- Declaring functions --------------------
 function searchNews(url: string) {
   fetch(url)
     .then((response) => {
@@ -31,8 +31,8 @@ function searchNews(url: string) {
     })
 }
 
-function createArticles(title: string, description: string, imgUrl: string | null, link: string) {
-  //* ------------------ Creating HTML elements ------------------
+function createArticles(title: string, description: string, imgUrl: string | null, link: string): void {
+  //| ------------------ Creating HTML elements ------------------
   const articleContainer = document.createElement('div') as HTMLDivElement;
   articleContainer.classList.add('article__container');
   const titleHeadline = document.createElement('h3') as HTMLHeadElement;
@@ -48,21 +48,19 @@ function createArticles(title: string, description: string, imgUrl: string | nul
   articleLink.href = link;
   linkBtn.textContent = 'Zum Artikel';
 
-  //* ------------------ Apendding HTML elements ------------------
+  //| ------------------ Apendding HTML elements ------------------
   articleLink.appendChild(linkBtn);
   articleContainer.append(titleHeadline, descriptionPElement, articleImg, articleLink);
   showResultsDiv.appendChild(articleContainer);
 }
 
-//? ------------------ Button events ------------------
+//* ------------------ Button events ------------------
 searchBtn.addEventListener('click', () => {
   showResultsDiv.innerHTML = '';
 
   const language_URL = `language=${languageSelect.value}`;
   const sortBy_URL = `sortBy=${sortBySelect.value}`;
   const searchKeyword = searchKeywordInput.value.trim();
-  const search_URL = `${BASE_URL}q=${searchKeyword}&${sortBy_URL}&${language_URL}&${API_KEY}`;
+  const search_URL = `${BASE_URL}q=${searchKeyword}&${sortBy_URL}&${language_URL}&apiKey=${API_KEY}`;
   searchNews(search_URL);
 })
-
-console.log(`${BASE_URL}q=Berlin&language=en&${API_KEY}`);
